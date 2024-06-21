@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Movies Listing</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="add-movie.component.css" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+          <!-- Sidebar - Brand -->
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
+              <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fa fa-film" aria-hidden="true"></i>
+              </div>
+              <div class="sidebar-brand-text mx-3">TGV Cinema</div>
+          </a>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider my-0">
+
+          <!-- Nav Item - Dashboard -->
+
+        <li class="nav-item">
+          <a class="nav-link" href="dashboard">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider">
+
+          <!-- Heading -->
+          <div class="sidebar-heading">
+              Movie
+          </div>
+
+          <!-- Nav Item - Add Movie Menu -->
+          <li class="nav-item active">
+            <a class="nav-link" href="addMovie">
+                  <i class="fas fa-plus"></i>
+                  <span>Add Movie</span>
+              </a>
+          </li>
+
+          <!-- Nav Item - Manage Movie Menu -->
+        <li class="nav-item">
+          <a class="nav-link" href="manageMovie">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Manage Movie Listing</span>
+          </a>
+        </li>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider">
+
+          <!-- Heading -->
+          <div class="sidebar-heading">
+             Booking
+          </div>
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          <!-- Nav Item - Charts -->
+          <li class="nav-item">
+            <a class="nav-link" href="manageBookings">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>View All Booking</span></a>
+        </li>
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" href="collectedTicket">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Collected Tickets</span></a>
+        </li>
+
+         <!-- Nav Item - Tables -->
+         <li class="nav-item">
+          <a class="nav-link" href="uncollectedTicket">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Uncollected Tickets</span></a>
+         </li>
+
+           <!-- Divider -->
+           <hr class="sidebar-divider d-none d-md-block">
+           <!-- Heading -->
+           <div class="sidebar-heading">
+             Staff
+           </div>
+             <!-- Nav Item - Tables -->
+             <li class="nav-item">
+               <a class="nav-link" href="manageAdmin">
+                   <i class="fas fa-fw fa-table"></i>
+                   <span>Manage Staffs</span></a>
+             </li>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <app-topbar></app-topbar>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Add Movie</h1>
+                    <p class="mb-4"> Add new movie in the TGV Cinema records</p>
+
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Movie Details</h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="add-movie-container">
+
+                      <!-- Success message -->
+                      <div *ngIf="showSuccessMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                        Movie added successfully!
+                        <button type="button" class="close" aria-label="Close" (click)="showSuccessMessage = false">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                                <!-- Form to add a new movie -->
+                                <form (ngSubmit)="addMovie()">
+                                  <div class="form-group">
+                                      <label for="title">Title:</label>
+                                      <input type="text" id="title" name="title" class="form-control"
+                                          [(ngModel)]="movie.title">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="genre">Genre:</label>
+                                      <input type="text" id="genre" name="genre" class="form-control"
+                                          [(ngModel)]="movie.genre">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="duration">Duration (minutes):</label>
+                                      <input type="number" id="duration" name="duration" class="form-control"
+                                          [(ngModel)]="movie.duration">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="releaseDate">Release Date:</label>
+                                      <input type="date" id="release_date" name="release_date" class="form-control"
+                                          [(ngModel)]="movie.release_date">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="director">Director:</label>
+                                      <input type="text" id="director" name="director" class="form-control"
+                                          [(ngModel)]="movie.director">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="description">Description:</label>
+                                      <textarea id="description" name="description" class="form-control"
+                                          [(ngModel)]="movie.description"></textarea>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="image">Upload Image:</label>
+                                    <input type="file" id="poster_image_path" name="poster_image_path" class="form-control"
+                                        (change)="onImageChange($event)">
+                                  </div>
+                                  <button type="submit" class="btn btn-primary">Save</button>
+                                  <button type="button" class="btn btn-secondary btn-gap" (click)="goBack()">Back</button>
+                              </form>
+                          </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <app-footer></app-footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+</body>
+
+</html>

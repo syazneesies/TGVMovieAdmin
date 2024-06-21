@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>User Home - TGV CINEMA</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/cinemaIcon2.png" />
+        <!-- Custom Google font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="member-bookings.component.css" rel="stylesheet" />
+    </head>
+    <body class="d-flex flex-column h-100">
+        <main class="flex-shrink-0">
+            <!-- Navigation-->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-danger py-3">
+              <div class="container px-5">
+                <a class="navbar-brand" (click)="redirectToMemberPage()">
+                  <span class="fw-bolder text-gradient">TGV CINEMA MEMBER</span>
+                </a>
+                  <div class="dropdown">
+                      <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="bi bi-person-circle profile-iconhome"></i> <!-- Icon for the profile -->
+                          My Account
+                      </button>
+                      <div class="dropdown-content" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" [routerLink]="['/memberProfile']" [queryParams]="{ 'userId': userId }">My Profile</a>
+                        <a class="dropdown-item"  [routerLink]="['/memberBookings']" [queryParams]="{ 'userId': userId }">My Bookings</a>
+                        <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" (click)="logout()">Log Out</a>
+                      </div>
+                    </div>
+                  </div>
+          </nav>
+          <section class="py-5">
+            <div class="container px-5">
+              <div class="row justify-content-center">
+                <div class="col-lg-12">
+                  <div class="card border-0 shadow-lg rounded-3">
+                    <div class="card-body p-4 p-sm-5">
+                      <h5 class="card-title text-center mb-5 fw-bold">My Bookings</h5>
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th>Number</th>
+                              <th>Movie Name</th>
+                              <th>Seat Quantity</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let booking of bookings">
+                              <td>{{ booking.number }}</td>
+                              <td>{{ booking.movieName }}</td>
+                              <td>{{ booking.seatQuantity }}</td>
+                              <td>{{ booking.status }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+      </body>
+    </html>

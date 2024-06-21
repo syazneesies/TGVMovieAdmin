@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+
+  angular:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - tgv-posters:/usr/share/nginx/html/assets/poster
+    ports:
+      - "8083:80"
+    networks:
+      - mdb-network
+
+  express:
+    build:
+      context: .
+      dockerfile: express.Dockerfile
+    volumes:
+      - tgv-posters:/app/src/assets/poster
+    ports:
+      - "3001:3001"
+    networks:
+      - mdb-network
+
+networks:
+  mdb-network:
+    external: true
+
+volumes:
+  tgv-posters:

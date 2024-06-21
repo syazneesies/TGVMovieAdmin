@@ -1,0 +1,11 @@
+stages: # List of stages for jobs, and their order of execution
+- deploy
+
+deploy-job: # This job runs in the deploy stage.
+    stage: deploy
+    script:
+    - docker compose pull || true
+    - docker compose build
+    - docker compose down || true
+    - docker compose up -d
+    - docker image prune -f
