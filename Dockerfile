@@ -1,4 +1,4 @@
-FROM node:18.16-alpine AS builder
+FROM node:18.19.1-alpine AS builder
 
 # Install angular cli
 RUN npm install -g @angular/cli

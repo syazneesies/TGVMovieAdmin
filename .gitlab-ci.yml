@@ -1,11 +1,48 @@
 stages: # List of stages for jobs, and their order of execution
-- deploy
+  - build
+  - test
+  - deploy
 
-deploy-job: # This job runs in the deploy stage.
-    stage: deploy
-    script:
-    - docker compose pull || true
-    - docker compose build
-    - docker compose down || true
-    - docker compose up -d
+# Define variables for Docker Hub
+variables:
+  DOCKER_IMAGE_ANGULAR: $CI_REGISTRY_IMAGE/angular:latest
+  DOCKER_IMAGE_EXPRESS: $CI_REGISTRY_IMAGE/express:latest
+
+# Job to build the Docker images
+build:
+  stage: build
+  script:
+    # Build Angular image
+    - docker build -t $DOCKER_IMAGE_ANGULAR -f Dockerfile .
+    # Build Express image
+    - docker build -t $DOCKER_IMAGE_EXPRESS -f express.Dockerfile .
+    # Login to Docker registry and push images
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker push $DOCKER_IMAGE_ANGULAR
+    - docker push $DOCKER_IMAGE_EXPRESS
+  only:
+    - main
+
+# Job to run JMeter tests
+jmeter_test:
+  stage: test
+  image: justb4/jmeter
+  script:
+    - jmeter -n -t C:\Users\acer\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\test.jmx -l results.jtl -e -o /results
+  artifacts:
+    paths:
+      - results/
+  only:
+    - main
+
+# Job to deploy the Docker containers
+deploy:
+  stage: deploy
+  script:
+    - docker-compose pull || true
+    - docker-compose build
+    - docker-compose down || true
+    - docker-compose up -d
     - docker image prune -f
+  only:
+    - main
